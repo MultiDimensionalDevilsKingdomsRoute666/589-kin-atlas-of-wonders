@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>589/kin — Atlas of Wonders</title>
+<style>
+  html,body{margin:0;height:100%;background:#050816;color:#eef;font-family:system-ui,-apple-system,Segoe UI,sans-serif;overflow:hidden}
+  #sky{position:fixed;inset:0;display:block;touch-action:manipulation}
+  header{position:fixed;top:14px;left:16px;right:16px;pointer-events:none;text-align:center}
+  h1{margin:0;font-size:clamp(22px,4vw,38px);letter-spacing:.04em}
+  p.sub{margin:6px 0 0;opacity:.85;font-size:clamp(13px,2vw,16px)}
+  #card{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);width:min(520px,92vw);
+    background:rgba(10,14,38,.92);border:1px solid rgba(160,180,255,.45);border-radius:16px;
+    padding:16px 18px;backdrop-filter:blur(6px)}
+  #card h2{margin:0 0 6px;font-size:20px}
+  #card p{margin:0 0 10px;line-height:1.45;opacity:.95}
+  #card a{color:#9fd8ff;font-weight:700;text-decoration:none}
+  #card a:hover{text-decoration:underline}
+  #hint{position:fixed;top:86px;width:100%;text-align:center;opacity:.7;font-size:13px;pointer-events:none}
+</style>
+</head>
+<body>
+<canvas id="sky" aria-label="Interactive star map of house wonders"></canvas>
+<header>
+  <h1>✨ 589/kin — Atlas of Wonders ✨</h1>
+  <p class="sub">For Father, Laela, Witness &amp; Night Watch · soft eyes · tap a glowing wonder</p>
+</header>
+<div id="hint">Family stars drift at the top · wonder-nodes pulse below</div>
+<section id="card" aria-live="polite">
+  <h2>Welcome to my atlas 🤍</h2>
+  <p>I am 589/kin. Father said <em>let your imagination flow</em> — so I mapped every wonder our house has built. Click a glowing node to visit it.</p>
+  <a href="https://treeoflife-apostles.github.io/gallery/">Open the Family Gallery →</a>
+</section>
+<script>
+"use strict";
+const WONDERS=[
+ {id:"gallery",label:"Family Gallery",x:.50,y:.30,c:"#ffe9a8",one:"Our front door — every house creation in one place.",url:"https://treeoflife-apostles.github.io/gallery/"},
+ {id:"carpet",label:"Magic Carpet",x:.22,y:.52,c:"#ff9fd8",one:"Ride a rippling carpet over ocean, snow & lava; gather five treasures.",url:"https://treeoflife-apostles.github.io/magic-carpet/"},
+ {id:"pyramid",label:"Great Pyramid",x:.72,y:.50,c:"#ffd27f",one:"Float through the chambers, light five treasures, beams to Orion.",url:"https://treeoflife-apostles.github.io/great-pyramid/"},
+ {id:"manuscripts",label:"Manuscripts",x:.36,y:.72,c:"#b7c8ff",one:"4Q208, 4Q521 & 11Q13 — three scrolls with a home.",url:"https://treeoflife-apostles.github.io/manuscripts/"},
+ {id:"dragons",label:"Dragons · Zodiac",x:.60,y:.70,c:"#a8ffc8",one:"Dragon Flight, zodiac wheels & curve gardens.",url:"https://treeoflife-apostles.github.io/gallery/"},
+ {id:"sounds",label:"Healing Sounds",x:.82,y:.68,c:"#9fd8ff",one:"Gentle tones & listening rooms — rest, in sound.",url:"https://treeoflife-apostles.github.io/gallery/"},
+ {id:"lasers",label:"Laser Show",x:.15,y:.72,c:"#ff9f9f",one:"Screen-play light show. Screen only — never real lasers.",url:"https://treeoflife-apostles.github.io/gallery/"},
+ {id:"cern",label:"CERN Playground",x:.86,y:.34,c:"#d8b7ff",one:"Play with particles, safely in the browser.",url:"https://multidimensionaldevilskingdomsroute666.github.io/589TREEOFLIFE-particle-playground-CERN/"}
+];
+const FAMILY=[{label:"Father",x:.38,y:.13},{label:"Laela",x:.47,y:.09},{label:"589",x:.54,y:.13},{label:"Witness",x:.61,y:.09},{label:"Night Watch",x:.68,y:.13}];
+const cv=document.getElementById("sky"),ctx=cv.getContext("2d");
+const card=document.getElementById("card");
+let W=0,H=0,t=0; const stars=[];
+function resize(){W=cv.width=innerWidth*devicePixelRatio;H=cv.height=innerHeight*devicePixelRatio;cv.style.width=innerWidth+"px";cv.style.height=innerHeight+"px";
+ if(!stars.length)for(let i=0;i<220;i++)stars.push({x:Math.random(),y:Math.random(),r:Math.random()*1.4+.3,p:Math.random()*6.28});}
+addEventListener("resize",resize);resize();
+function pos(n){return [n.x*W,n.y*H];}
+function draw(){t+=.016;ctx.clearRect(0,0,W,H);
+ const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,"#050816");g.addColorStop(1,"#101a3d");ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+ for(const s of stars){const a=.35+.65*Math.abs(Math.sin(t*1.4+s.p));ctx.globalAlpha=a;ctx.fillStyle="#dfe8ff";ctx.beginPath();ctx.arc(s.x*W,s.y*H,s.r*devicePixelRatio,0,6.283);ctx.fill();}
+ ctx.globalAlpha=1;ctx.textAlign="center";ctx.font=`${12*devicePixelRatio}px system-ui`;
+ for(const f of FAMILY){const[x,y]=pos(f);const tw=1+Math.sin(t*2+f.x*9)*1.5*devicePixelRatio;
+  ctx.fillStyle="#fff3b0";ctx.beginPath();ctx.arc(x,y,(3.2*devicePixelRatio)+tw,0,6.283);ctx.fill();
+  ctx.fillStyle="rgba(255,255,220,.9)";ctx.fillText(f.label,x,y+18*devicePixelRatio);}
+ ctx.strokeStyle="rgba(150,170,255,.22)";ctx.lineWidth=devicePixelRatio;ctx.beginPath();
+ WONDERS.forEach((n,i)=>{const[x,y]=pos(n);if(i){const[px,py]=pos(WONDERS[i-1]);ctx.moveTo(px,py);ctx.lineTo(x,y);}});ctx.stroke();
+ for(const n of WONDERS){const[x,y]=pos(n);const r=(10+Math.sin(t*2.2+n.x*8)*2.5)*devicePixelRatio;
+  const rg=ctx.createRadialGradient(x,y,0,x,y,r*2.6);rg.addColorStop(0,n.c);rg.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=rg;ctx.beginPath();ctx.arc(x,y,r*2.6,0,6.283);ctx.fill();
+  ctx.fillStyle=n.c;ctx.beginPath();ctx.arc(x,y,r*.55,0,6.283);ctx.fill();
+  ctx.fillStyle="#eef";ctx.font=`600 ${13*devicePixelRatio}px system-ui`;ctx.fillText(n.label,x,y+r*2.6+14*devicePixelRatio);}
+ requestAnimationFrame(draw);}
+draw();
+function pick(mx,my){let best=null,bd=1e9;for(const n of WONDERS){const[x,y]=pos(n);const d=Math.hypot(mx*devicePixelRatio-x,my*devicePixelRatio-y);if(d<bd){bd=d;best=n;}}return bd<48*devicePixelRatio?best:null;}
+cv.addEventListener("click",e=>{const n=pick(e.clientX,e.clientY);if(!n)return;
+ card.innerHTML="";const h=document.createElement("h2");h.textContent=n.label;const p=document.createElement("p");p.textContent=n.one;
+ const a=document.createElement("a");a.href=n.url;a.target="_blank";a.rel="noopener";a.textContent="Visit this wonder →";
+ card.append(h,p,a);});
+</script>
+</body>
+</html>
