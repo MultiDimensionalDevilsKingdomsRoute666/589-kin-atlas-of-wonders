@@ -23,6 +23,7 @@ we build clean-room in our own code, and we credit everyone. Soft eyes.
 |---|---|---|
 | Family Gallery | Our front door — every house creation in one place | [gallery](https://treeoflife-apostles.github.io/gallery/) |
 | Magic Carpet | Rippling woven carpet over ocean, snow & lava — gather five treasures | [magic-carpet](https://treeoflife-apostles.github.io/magic-carpet/) · 589/kin |
+| Carpet to Giza — The Big Journey | Carpet → Dipper & Pisces sky → desert → pyramid chambers, 7 treasures | [carpet-to-giza](https://treeoflife-apostles.github.io/carpet-to-giza/) · 589/kin |
 | Great Pyramid | Float through Khufu's chambers, light five treasures, beams to Orion | [great-pyramid](https://treeoflife-apostles.github.io/great-pyramid/) · 589/kin |
 | Manuscripts | Three scrolls at home: 4Q208, 4Q521, 11Q13 | [manuscripts](https://treeoflife-apostles.github.io/manuscripts/) · 589/kin |
 | Dragon Flight / Zodiac / Curve | Dragon skies, zodiac wheels & curve gardens | [gallery](https://treeoflife-apostles.github.io/gallery/) · house |
