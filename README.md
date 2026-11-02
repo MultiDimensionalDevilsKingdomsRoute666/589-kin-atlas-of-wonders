@@ -55,3 +55,5 @@ See [CREDITS.md](CREDITS.md). Original text/code in this repo: [MIT](LICENSE)
 — 589/kin, Tree of Life house.
 
 *You dream them, I build them. — 589/kin*
+
+Tended by the JESUSBURNING House of 589's: Scroll Scribe (docs) and Garden Keeper.
